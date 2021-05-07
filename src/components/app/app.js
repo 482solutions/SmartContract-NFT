@@ -41,8 +41,8 @@ const App = () => {
         refreshButton: {
             position: 'fixed',
             padding: '10px 15px',
-            right: '11%',
-            bottom: '3%',
+            right: '2%',
+            bottom: '10%',
             backgroundColor: '#4051b5',
             color: '#fff',
             borderRadius: 50,
