@@ -8,7 +8,7 @@ cd SmartContract-NFT
 Step 2. Install npm
 ```
 npm install
-
+```
 Step 3. Start project
 ```
 npm start
