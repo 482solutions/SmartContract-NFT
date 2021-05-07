@@ -9,5 +9,8 @@ Step 2. Install npm
 ```
 npm install
 
+Step 3. Start project
+```
+npm start
+```
 
-Step 3. npm start
