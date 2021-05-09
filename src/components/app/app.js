@@ -99,9 +99,7 @@ const App = () => {
 
         <Container className={classes.body}>
             <Header open={open} close={() => setOpen(false)} eth={eth}/>
-            <Button  onClick={handleClickOpen} style={styles.createButton}>
-                Create NFT
-            </Button>
+
             <Form open={open} close={() => setOpen(false)} eth={eth}/>
 
             {eth ?
@@ -112,6 +110,9 @@ const App = () => {
                         </div>:
                         <></>
                     }
+                    <Button  onClick={handleClickOpen} style={styles.createButton}>
+                        Create NFT
+                    </Button>
                     <div>
                         <Button onClick={()=>{refreshTokens(eth)}} style={styles.refreshButton}>Refresh tokens</Button>
                     </div>
