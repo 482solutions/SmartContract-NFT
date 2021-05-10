@@ -6,7 +6,9 @@ import contractFunc from '../controller'
 import useClasses from './classes'
 import Container from '@material-ui/core/Container'
 import Button from '@material-ui/core/Button'
-
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 
 import Form from "../form/form";
 import Tokens from "../tokens/tokens";
@@ -117,8 +119,24 @@ const App = () => {
                         <Button onClick={()=>{refreshTokens(eth)}} style={styles.refreshButton}>Refresh tokens</Button>
                     </div>
                     <Tokens tokens={tokens} eth={eth}/>
-                </div>: 
-                <Button onClick={ethLogin} variant="contained" color="primary">Connect metamask</Button>
+                </div>:
+                <Container className={classes.root}>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} key='login'>
+                            <Paper
+                                elevation={0}
+                                className='paper'>
+                                <Typography className="title">First you need to log in</Typography>
+                                <Typography className="description">Please connect to metamask</Typography>
+                                <div className='btn'>
+                                    <Button onClick={ethLogin}>
+                                        Connect metamask
+                                    </Button>
+                                </div>
+                            </Paper>
+                        </Grid>
+                    </Grid>
+                </Container>
             }
         </Container>
     )
