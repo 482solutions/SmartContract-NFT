@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import Web3 from 'web3'
 
 import Header from "../header/header";
@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import CachedIcon from '@material-ui/icons/Cached';
+import Modal from '../modal/modal';
 
 import Form from "../form/form";
 import Tokens from "../tokens/tokens";
@@ -18,6 +20,7 @@ const App = () => {
     const [eth, setEth] = useState();
     const [tokens, setTokens] = useState();
     const [transaction, setTransaction] = useState();
+    const [loginStatus, setLoginStatus] = useState(true);
     const [id, setId] = useState();
 
     const [open, setOpen] = React.useState(false);
@@ -43,13 +46,13 @@ const App = () => {
         refreshButton: {
             position: 'fixed',
             padding: '10px 15px',
-            right: '2%',
+            right: '5%',
             bottom: '10%',
             backgroundColor: '#4051b5',
             color: '#fff',
             borderRadius: 50,
-            minHeight: 45,
-            minWidth: 120,
+            minHeight: 50,
+            minWidth: 20,
             fontSize: 12,
             '&:hover': {
                 transition: 'margin-left 2s ease',
@@ -59,19 +62,24 @@ const App = () => {
         },
     }
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
+            const handleClickOpen = () => {
+                setOpen(true);
+            };
 
-    const handleClose = () => {
-        setOpen(false);
-    };
+            const handleClose = () => {
+                setOpen(false);
+            };
 
-    const ethLogin = async () => {
-        await window.web3.currentProvider.enable();
-        const newWeb = new Web3(Web3.givenProvider);
-        setEth(newWeb.eth);
-        await showTokens(newWeb.eth);
+            const ethLogin = async () => {
+                try {
+                    await window.web3.currentProvider.enable();
+                    const newWeb = new Web3(Web3.givenProvider);
+                    setEth(newWeb.eth);
+                    await showTokens(newWeb.eth);}
+                catch (e) {
+                   setLoginStatus(false);
+        }
+
 
     };
 
@@ -116,11 +124,12 @@ const App = () => {
                         Create NFT
                     </Button>
                     <div>
-                        <Button onClick={()=>{refreshTokens(eth)}} style={styles.refreshButton}>Refresh tokens</Button>
+
+                        <Button onClick={()=>{refreshTokens(eth)}} style={styles.refreshButton}><CachedIcon /></Button>
                     </div>
                     <Tokens tokens={tokens} eth={eth}/>
                 </div>:
-                <Container className={classes.root}>
+                 loginStatus ? <Container className={classes.root}>
                     <Grid container spacing={3}>
                         <Grid item xs={12} key='login'>
                             <Paper
@@ -136,7 +145,7 @@ const App = () => {
                             </Paper>
                         </Grid>
                     </Grid>
-                </Container>
+                </Container> : <Modal login={setLoginStatus}/>
             }
         </Container>
     )
