@@ -61,7 +61,7 @@ export default function FormDialog({open, close, eth}) {
                     autoFocus
                     margin="dense"
                     id="name"
-                    label="name"
+                    label="Name"
                     type="text"
                     fullWidth
                     onChange={e => setName(e.target.value)}
@@ -70,7 +70,7 @@ export default function FormDialog({open, close, eth}) {
                     autoFocus
                     margin="dense"
                     id="symbol"
-                    label="symbol"
+                    label="Symbol"
                     type="text"
                     fullWidth
                     onChange={e => setSymbol(e.target.value)}
