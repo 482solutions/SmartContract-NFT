@@ -1,7 +1,5 @@
-/* eslint-disable no-console */
-'use strict'
-const React = require('react')
-const ipfsHttpClient = require('ipfs-http-client')
+import React from 'react';
+import ipfsHttpClient from 'ipfs-http-client';
 
 
 class IPFSLOAD extends React.Component {
@@ -35,7 +33,8 @@ class IPFSLOAD extends React.Component {
                     progress: (prog) => console.log(`received: ${prog}`)
                 }
             )
-            console.log(added)
+            console.log(added);
+            console.log("state", this.state)
             this.setState({ added_file_hash: added.cid.toString() })
             this.props.hash(added.cid.toString())
             this.props.setFile(file)

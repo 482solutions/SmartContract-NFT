@@ -7,6 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import contractFunc from "../controller";
 import Upload from "../upload/upload";
+import UploadFunc from '../upload/uploadFunc';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
@@ -76,7 +77,7 @@ export default function FormDialog({open, close, eth}) {
                     onChange={e => setSymbol(e.target.value)}
                 />
 
-                <Upload hash={setHash} setFile={setFile}/>
+                <UploadFunc hash={setHash} setFile={setFile}/>
 
             </DialogContent>
             <DialogActions>
