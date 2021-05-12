@@ -6,7 +6,6 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import contractFunc from "../controller";
-import Upload from "../upload/upload";
 import UploadFunc from '../upload/uploadFunc';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -17,6 +16,14 @@ const useStyles = makeStyles((theme) => ({
         zIndex: theme.zIndex.drawer + 1,
         color: '#fff',
     },
+    dialog: {
+        backgroundColor: "#2d2f3e",
+        color: '#fff'
+    },
+    textField:{
+        borderBottom: "1px solid white",
+        color: '#fff'
+    }
 }));
 
 export default function FormDialog({open, close, eth}) {
@@ -24,15 +31,12 @@ export default function FormDialog({open, close, eth}) {
     const [file, setFile] = useState();
     const [name, setName] = useState();
     const [symbol, setSymbol] = useState();
-    const [transaction, setTransaction] = useState();
+    const [setTransaction] = useState();
     const [hash, setHash] = useState();
-
     const [loader, setLoader] = React.useState(false);
+
     const handleClose = () => {
         setLoader(false);
-    };
-    const handleToggle = () => {
-        setLoader(!open);
     };
     const send = async () => {
         const link = 'https://ipfs.io/ipfs/' + hash;
@@ -53,11 +57,11 @@ export default function FormDialog({open, close, eth}) {
         close()
     };
 
-
     return (
-        <Dialog open={open} onClose={close} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Create Token</DialogTitle>
-            <DialogContent>
+
+        <Dialog open={open} onClose={close} aria-labelledby="form-dialog-title" >
+            <DialogTitle id="form-dialog-title" className={classes.dialog}>Create Token</DialogTitle>
+            <DialogContent className={classes.dialog}>
                 <TextField
                     autoFocus
                     margin="dense"
@@ -65,6 +69,7 @@ export default function FormDialog({open, close, eth}) {
                     label="Name"
                     type="text"
                     fullWidth
+                    className={classes.textField}
                     onChange={e => setName(e.target.value)}
                 />
                 <TextField
@@ -80,7 +85,7 @@ export default function FormDialog({open, close, eth}) {
                 <UploadFunc hash={setHash} setFile={setFile}/>
 
             </DialogContent>
-            <DialogActions>
+            <DialogActions className={classes.dialog}>
                 <Button onClick={close} color="primary">
                     Cancel
                 </Button>

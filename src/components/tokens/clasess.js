@@ -1,16 +1,16 @@
 import { makeStyles } from '@material-ui/core/styles'
 
 const useClasses = makeStyles(theme => ({
-    paper: {
-        display: 'flex',
-        backgroundColor: '#fff',
-        border: '1px solid #dadce0',
-        borderRadius: 8,
-        padding: theme.spacing(0),
-        // marginBottom: 8,
-        pageBreakInside: 'avoid',
-        wordWrap: 'break-word',
-        WebkitTransition: 'background-color 200ms cubic-bezier(0.0,0.0,0.2,1)'
+    card: {
+        //boxShadow: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
+        backgroundColor: "#2d2f3e",
+        color: "#efeeee",
+        '&:hover': {
+            boxShadow: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22)',
+        }
+    },
+    btn: {
+        color: "#ff2975bb"
     },
     title: {
         fontSize: 18,
@@ -40,13 +40,9 @@ const useClasses = makeStyles(theme => ({
     root: {
         flexGrow: 1,
 
-        // display: 'flex',
-        // maxWidth: '90vw',
-        // width: 500,
-        // paddingBottom: 50,
         '& .paper': {
-            backgroundColor: '#fff',
-            border: '1px solid #dadce0',
+            backgroundColor: '#2d2f3e',
+            color: '#fff',
             borderRadius: 8,
             padding: 24,
             pageBreakInside: 'avoid',
@@ -61,6 +57,7 @@ const useClasses = makeStyles(theme => ({
                 marginTop: 12
             }
         },
+
         '& .paper.header': {
             boxSizing: 'border-box',
             borderTop: '4px solid #3f51b5cc',
@@ -77,7 +74,7 @@ const useClasses = makeStyles(theme => ({
         }
     },
     disabledButton: {
-        color: '#00000026',
+        color: '#fff',
         '&:hover': {
             backgroundColor: "#fff"
         },

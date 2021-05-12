@@ -4,6 +4,14 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import useClasses from './clasess';
 import contractFunc from "../controller";
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+
+
 
 const getInfo = async (eth, id) => {
     try {
@@ -29,18 +37,40 @@ const Tokens = ({tokens, eth}) => {
           { tokens && tokens.length ?
               tokens.map(item =>  {
                 return <Grid item xs={4} key={item[0]}>
-                  <Paper
-                      elevation={3}
-                      className={classes.paper}
-                  >
-                    <a href={item.IPFSLink} target="_blank"><img className={classes.img} src={item.IPFSLink} /></a>
-                    <div className={classes.caption}>
+                  {/*<Paper*/}
+                  {/*    elevation={3}*/}
+                  {/*    className={classes.paper}*/}
+                  {/*>*/}
+                  {/*  <a href={item.IPFSLink} target="_blank"><img className={classes.img} src={item.IPFSLink} /></a>*/}
+                  {/*  <div className={classes.caption}>*/}
 
-                      <Typography className={classes.title}>Contract: {item.name}</Typography>
-                      <Typography className={classes.title} onClick={() => {getInfo(eth, item.tokenId)}}>Token: <a href="#">Link</a></Typography>
-                    </div>
+                  {/*    <Typography className={classes.title}>Contract: {item.name}</Typography>*/}
+                  {/*    <Typography className={classes.title} onClick={() => {getInfo(eth, item.tokenId)}}>Token: <a href="#">Link</a></Typography>*/}
+                  {/*  </div>*/}
 
-                  </Paper>
+                  {/*</Paper>*/}
+                    <Card className={classes.card} >
+                        <CardActionArea >
+                            <CardMedia
+                                className={classes.media}
+                                component="img"
+                                image={item.IPFSLink}
+                            />
+                            <CardContent>
+                                <Typography gutterBottom variant="h5" component="h2">
+                                    {item.name}
+                                </Typography>
+                            </CardContent>
+                        </CardActionArea>
+                        <CardActions>
+                            <Button size="small" className={classes.btn} target='_blank' onClick={() => {getInfo(eth, item.tokenId)}}>
+                                More
+                            </Button>
+                            <Button size="small" className={classes.btn}  target='_blank' href={item.IPFSLink}>
+                                Ipfs
+                            </Button>
+                        </CardActions>
+                    </Card>
                 </Grid>
               }) :
               <Grid item xs={12} key='noPaper'>

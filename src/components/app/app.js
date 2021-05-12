@@ -10,7 +10,11 @@ import Paper from '@material-ui/core/Paper'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import CachedIcon from '@material-ui/icons/Cached';
+import AddIcon from '@material-ui/icons/Add';
+import Buttons from "../buttons/buttons";
 import Modal from '../modal/modal';
+import StartPage from '../startPage/startPage';
+
 
 import Form from "../form/form";
 import Tokens from "../tokens/tokens";
@@ -19,24 +23,19 @@ const App = () => {
     const classes = useClasses();
     const [eth, setEth] = useState();
     const [tokens, setTokens] = useState();
-    const [transaction, setTransaction] = useState();
     const [loginStatus, setLoginStatus] = useState(true);
-    const [id, setId] = useState();
-
     const [open, setOpen] = React.useState(false);
 
     const styles = {
         createButton: {
             position: 'fixed',
-            padding: '10px 15px',
-            right: '3%',
-            bottom: '3%',
+            right: '5%',
+            bottom: '2%',
             backgroundColor: '#ff2975bb',
             color: '#fff',
             borderRadius: 50,
-            minHeight: 45,
-            minWidth: 120,
-            fontSize: 12,
+            minHeight: 50,
+            minWidth: 50,
             '&:hover': {
                 transition: 'margin-left 2s ease',
                 backgroundColor: '#ff295fdd',
@@ -52,7 +51,7 @@ const App = () => {
             color: '#fff',
             borderRadius: 50,
             minHeight: 50,
-            minWidth: 20,
+            minWidth: 50,
             fontSize: 12,
             '&:hover': {
                 transition: 'margin-left 2s ease',
@@ -62,15 +61,11 @@ const App = () => {
         },
     }
 
-            const handleClickOpen = () => {
+
+    const handleClickOpen = () => {
                 setOpen(true);
             };
-
-            const handleClose = () => {
-                setOpen(false);
-            };
-
-            const ethLogin = async () => {
+    const ethLogin = async () => {
                 try {
                     await window.web3.currentProvider.enable();
                     const newWeb = new Web3(Web3.givenProvider);
@@ -79,26 +74,21 @@ const App = () => {
                 catch (e) {
                    setLoginStatus(false);
         }
-
-
     };
-
     const showTokens = async (localEth) => {
         try {
             const resp = await contractFunc(localEth, {type:"getAllTokens"});
-            console.log("resp", resp);
             setTokens(resp);
 
         } catch(e) {
             console.log(e)
         }
     };
-
     const refreshTokens = async (localEth) => {
         try {
             const resp = await contractFunc(localEth, {type:"getAllTokens"});
-            console.log("eth", eth);
             setTokens(resp);
+            console.log(resp)
 
         } catch(e) {
             console.log(e)
@@ -109,43 +99,24 @@ const App = () => {
 
         <Container className={classes.body}>
             <Header open={open} close={() => setOpen(false)} eth={eth}/>
-
             <Form open={open} close={() => setOpen(false)} eth={eth}/>
-
             {eth ?
+                // <div className="buttons">
+                //     <Button  onClick={handleClickOpen} style={styles.createButton}><AddIcon/></Button>
+                //     <div>
+                //
+                //         <Button onClick={()=>{refreshTokens(eth)}} style={styles.refreshButton}><CachedIcon /></Button>
+                //     </div>
+                //     <Tokens tokens={tokens} eth={eth}/>
+                // </div>:
                 <div className="buttons">
-                    {transaction ? 
-                        <div>
-                            <button onClick={()=> window.open(`https://goerli.etherscan.io/tx/${transaction}`, "_blank")}>Show transaction</button>
-                        </div>:
-                        <></>
-                    }
-                    <Button  onClick={handleClickOpen} style={styles.createButton}>
-                        Create NFT
-                    </Button>
-                    <div>
-
-                        <Button onClick={()=>{refreshTokens(eth)}} style={styles.refreshButton}><CachedIcon /></Button>
-                    </div>
+                    <Buttons handleClickOpen={handleClickOpen} refreshTokens={refreshTokens} eth={eth} />
                     <Tokens tokens={tokens} eth={eth}/>
-                </div>:
-                 loginStatus ? <Container className={classes.root}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={12} key='login'>
-                            <Paper
-                                elevation={0}
-                                className='paper'>
-                                <Typography className="title">First you need to log in</Typography>
-                                <Typography className="description">Please connect to metamask</Typography>
-                                <div className='btn'>
-                                    <Button onClick={ethLogin}>
-                                        Connect metamask
-                                    </Button>
-                                </div>
-                            </Paper>
-                        </Grid>
-                    </Grid>
-                </Container> : <Modal login={setLoginStatus}/>
+                </div>
+
+
+                 :
+                 loginStatus ? <StartPage ethLogin={ethLogin}/> : <Modal login={setLoginStatus}/>
             }
         </Container>
     )
